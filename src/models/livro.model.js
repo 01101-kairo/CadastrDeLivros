@@ -2,11 +2,14 @@ const mongoose = require('./../config/mongo')
 const {Schema} = mongoose
 
 const livroSchema = new Schema({
-  titul: String,
-  paginas: Number,
+  id: String,
+  titulo: String,
+  paginas: String,
   ISBN: String,
-  Editora: String
-})
+  editora: String,
+},
+  {timestamps: true}
+)
 
 const LivroModel = mongoose.model('livros', livroSchema)
 module.exports = LivroModel
