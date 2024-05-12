@@ -9,7 +9,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Rota para cadastrar um livro
+// [Rota para cadastrar um livro]
 app.post('/livros', async (req, res) => {
   try {
     const livro = await livroModel.create({
@@ -26,7 +26,7 @@ app.post('/livros', async (req, res) => {
   }
 });
 
-// Rota para listar todos os livros
+// [Rota para listar todos os livros]
 app.get('/livros', async (req, res) => {
   try {
     const livros = await livroModel.find();
@@ -36,7 +36,7 @@ app.get('/livros', async (req, res) => {
   }
 });
 
-// Rota para buscar um livro pelo ID
+// [Rota para buscar um livro pelo ID]
 app.get('/livros/:id', async (req, res) => {
   try {
     const livro = await livroModel.findById(req.params.id);
@@ -49,7 +49,7 @@ app.get('/livros/:id', async (req, res) => {
   }
 });
 
-// Rota para editar um livro pelo ID
+// [Rota para editar um livro pelo ID]
 app.put('/livros/:id', async (req, res) => {
   try {
     const livro = await livroModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -62,7 +62,7 @@ app.put('/livros/:id', async (req, res) => {
   }
 });
 
-// Rota para deletar um livro pelo ID
+// [Rota para deletar um livro pelo ID]
 app.delete('/livros/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -77,7 +77,7 @@ app.delete('/livros/:id', async (req, res) => {
   }
 });
 
-// Inicie o servidor
+// [Inicie o servidor]
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
