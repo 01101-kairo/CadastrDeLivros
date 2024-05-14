@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
+const express = require('express')
+const cors = require('cors')
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
 
 const livroModel = require('./src/models/livro.model')
 
@@ -9,9 +9,15 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// [Rota para cadastrar um livro]
+/*[Rota para cadastrar um livro]*/
 app.post('/livros', async (req, res) => {
   try {
+    const { id, titulo, paginas, ISBN, editora } = req.body;
+
+    const livroExistente = await livroModel.findOne({ id });
+    if (livroExistente) {
+      return res.status(400).json({ error: 'ID já está em uso' });
+    }
     const livro = await livroModel.create({
       id: req.body.id,
       titulo: req.body.titulo,
@@ -26,7 +32,7 @@ app.post('/livros', async (req, res) => {
   }
 });
 
-// [Rota para listar todos os livros]
+/*[Rota para listar todos os livros] */
 app.get('/livros', async (req, res) => {
   try {
     const livros = await livroModel.find();
@@ -36,10 +42,10 @@ app.get('/livros', async (req, res) => {
   }
 });
 
-// [Rota para buscar um livro pelo ID]
+/*[Rota para buscar um livro pelo ID]*/
 app.get('/livros/:id', async (req, res) => {
   try {
-    const livro = await livroModel.findById(req.params.id);
+    const livro = await livroModel.findOne({ id: req.params.id });
     if (!livro) {
       return res.status(404).json({ message: 'Livro não encontrado' });
     }
@@ -49,10 +55,10 @@ app.get('/livros/:id', async (req, res) => {
   }
 });
 
-// [Rota para editar um livro pelo ID]
+/*[Rota para editar um livro pelo ID]*/
 app.put('/livros/:id', async (req, res) => {
   try {
-    const livro = await livroModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const livro = await livroModel.findOneAndUpdate({ id: req.params.id }, req.body, { new: true })
     if (!livro) {
       return res.status(404).json({ message: 'Livro não encontrado' });
     }
@@ -62,11 +68,11 @@ app.put('/livros/:id', async (req, res) => {
   }
 });
 
-// [Rota para deletar um livro pelo ID]
+/*[Rota para deletar um livro pelo ID]*/
 app.delete('/livros/:id', async (req, res) => {
   const id = req.params.id;
   try {
-    const livro = await livroModel.findByIdAndDelete(id);
+    const livro = await livroModel.findOneAndDelete({id});
     if (livro) {
       return res.status(200).send(`O livro com o ID ${id} foi removido com sucesso`);
     } else {
@@ -76,8 +82,7 @@ app.delete('/livros/:id', async (req, res) => {
     return res.status(500).json({ error: 'Erro ao deletar livro' });
   }
 });
-
-// [Inicie o servidor]
+/* [Inicie o servidor] */
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
