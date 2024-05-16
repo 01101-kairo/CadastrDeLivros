@@ -2,9 +2,9 @@ const mongoose = require('./../config/mongo')
 const {Schema} = mongoose
 
 const livroSchema = new Schema({
-  id: String,
+  id: Number,
   titulo: String,
-  paginas: String,
+  paginas: Number,
   ISBN: String,
   editora: String,
 },

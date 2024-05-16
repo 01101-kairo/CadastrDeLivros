@@ -82,6 +82,7 @@ app.delete('/livros/:id', async (req, res) => {
     return res.status(500).json({ error: 'Erro ao deletar livro' });
   }
 });
+
 /* [Inicie o servidor] */
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
