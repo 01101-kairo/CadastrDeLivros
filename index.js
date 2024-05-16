@@ -9,6 +9,8 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+/*[REST:(GET, POST, PUT, PATCH, DELETE)]*/
+
 /*[Rota para cadastrar um livro]*/
 app.post('/livros', async (req, res) => {
   try {
