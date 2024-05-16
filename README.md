@@ -2,7 +2,7 @@
 
 usando mongodb(db assíncrona) como banco de dados 
 
-# REST:(GET, POST, PUT, PATCH, DELETE)
+# REST:(GET, POST, PUT/PATCH, DELETE)
 
  ## cadastro de livro
   
